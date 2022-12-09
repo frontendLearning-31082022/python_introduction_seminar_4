@@ -17,18 +17,21 @@ import console_methods
 import window
 
 
-def generator_thread(first,second):
+def generator_thread(first, second):
     generator_integer = itertools.count(int(first))
     if len(argv) > 2:
-        generator_integer = itertools.count(int(first), int(second))
+        generator_integer = itertools.count(int(first))
     # generator_integer = itertools.count(int(argv[1]))
     # if len(argv) > 2:
     #     generator_integer = itertools.count(int(argv[1]), int(argv[2]))
 
     while True:
-        print(generator_integer.__next__())
+        dig = generator_integer.__next__()
+        print(dig)
+        if second != None:
+            if int(second) == dig:
+                exit(0)
         time.sleep(2)
-
 
 
 if __name__ == '__main__':
@@ -45,22 +48,21 @@ if __name__ == '__main__':
     else:
         if not argv[2].isdigit():
             print("Error. Second arg need digit")
-        exit(1)
+            exit(1)
 
-    first=0
-    second=0
-    # try:
-    #     first=argv[1]
-    # except:
-    #     asd=0
-    #
-    # try:
-    #     second = argv[2]
-    # except:
-    #     asd = 0
+    first = 0
+    second = 0
+    try:
+        first = argv[1]
+    except:
+        asd = 0
 
-    thread = Thread(target=generator_thread(first,second))
+    try:
+        second = argv[2]
+    except:
+        asd = 0
+
+    thread = Thread(target=generator_thread(first, second))
     thread.start()
 
     window.show_first_window()
-
